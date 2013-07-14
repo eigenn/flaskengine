@@ -1,0 +1,48 @@
+{% extends "flaskengine/base.html" %}
+{% block content %}
+<ul class="inline">
+  <li><h2> {{ model.__name__ }}</h2></li>
+  {% if 'create' in view.view_actions  %}
+  <li><a class="btn btn-primary" href="{{view.get_create_action_url() }}">Add</a></li>
+  {% endif %}
+</ul>
+<hr>
+<table class="table table-bordered table-striped table-hover">
+	<thead>
+		<tr>
+			{% for header in table.header() %}
+			<th>{{ header }}</th>
+			{% endfor %}
+			{% for action in view.view_actions %}
+            {% if action != 'create' %}
+			<th>{{ action }}</th>
+            {% endif %}
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody>
+			{% for row in table %}
+				<tr>
+					{% for coloum in row %}
+						<td>{{ coloum }}</td>
+					{% endfor %}
+						{% for action in view.view_actions %}
+							{% if action == 'edit' %}
+								<td>
+                                    <a href="{{view.get_edit_action_url(row.entity) }}">
+				    					<i class="icon-edit"></i>
+				    				</a>
+				    			</td>
+				    		{% elif action == 'delete' %}
+				    			<td>
+                                    <a href="{{view.get_delete_action_url(row.entity) }}">
+				    					<i class="icon-trash"></i>
+				    				</a>
+				    			</td>
+				    		{% endif %}
+				    {% endfor %}
+				</tr>
+			{% endfor %}
+	</tbody>
+</table>	
+{% endblock content %}

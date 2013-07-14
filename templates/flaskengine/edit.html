@@ -1,0 +1,26 @@
+{% extends "flaskengine/base.html" %}
+{% block content %}
+{% if entity %}
+<h2>{{ entity.__unicode__ }}</h2>
+{% endif %}
+<hr>
+{% if message_ok %}
+<div class="alert alert-success">{{ message_ok }}</div>
+{% elif message_alert %}
+<div class="alert alert-error">{{ message_alert }}</div>
+{% endif %}
+{% from 'flaskengine/form_macros.html' import form_fields %}
+
+<form class="form-horizontal" method="POST">
+
+{{ form_fields(form) }}
+<div class="controls">
+      <button type="submit" class="btn">Save</button>
+    </div>
+</form>
+<hr>
+<a class="btn btn-primary" href="{{view.get_list_action_url() }}">Go Back</a>
+{% if entity %}
+<a class="btn btn-danger" href="{{view.get_delete_action_url(entity) }}">Delete</a>
+{% endif %}
+{% endblock content%}

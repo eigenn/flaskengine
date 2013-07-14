@@ -1,0 +1,8 @@
+{% extends "flaskengine/base.html" %}
+{% block content %}
+<h2>{{ entity.__unicode__ }}</h2>
+<form method="POST">
+<input type="submit" class="btn btn-danger" value="Delete">
+</form>
+<a href="{{view.get_list_action_url() }}" class="btn btn-primary">Back</a>
+{% endblock content%}
