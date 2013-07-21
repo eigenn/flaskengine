@@ -7,8 +7,7 @@ from .config import ConfigLoader
 
 class BaseView(View):
     """
-    docstring for BaseCrudView
-    base view that can be used to generate flask views.
+    Base View contain some boilerplate.
     """
     #ONLY GET ALLOWED BY DEFAULT ALTO GET AND POST IMPLEMENTED
     methods = ['GET', ]
@@ -19,6 +18,7 @@ class BaseView(View):
     def has_permissions(self):
         """
         check if user have permissions to the view
+        if not return status code 403
         """
         if self.admin and not users.is_current_user_admin():
             #TODO: Something smarter here.
@@ -26,13 +26,18 @@ class BaseView(View):
 
     def render_template(self, **context):
         """
-        base rendering of a template
+        render the self.template.
+        params:
+            **context: dict to be passed to the template.
         """
         return render_template(self.template, **context)
 
     def template_context(self, **kwargs):
         """
         base context for templates
+
+        params:
+            **kwargs: values to update the base context
         """
         context = {
             'config': ConfigLoader.get_or_load_default(current_app.config),
@@ -45,6 +50,14 @@ class BaseView(View):
     def dispatch_request(self, **kwargs):
         """
         Base dispatch_request
+
+        checks if user has permisions
+        distributes:
+            get method
+            post method
+
+        params:
+            **kwargs: kwargs are passed down to methods
         """
         self.has_permissions()
         if request.method == 'POST':
@@ -57,12 +70,14 @@ class BaseView(View):
     def post(self, **kwargs):
         """
         handle post method
+        and returns the template
         """
         return self.render_template(**self.template_context())
 
     def get(self, **kwargs):
         """
         handle get method
+        and return the template
         """
         return self.render_template(**self.template_context())
 
@@ -70,6 +85,8 @@ class BaseView(View):
     def get_endpoint(cls):
         """
         set the endpoint for the view method
+        if self.endpoint is not set it will 
+        use the cls.get_view_name() as endpoint
         """
         if cls.endpoint:
             return '/' + cls.endpoint
@@ -80,11 +97,16 @@ class BaseView(View):
     def get_view_name(cls):
         """
         as_view name register
+        returns the view_name 
+        cls.__name__.lower()
         """
         return cls.__name__.lower()
 
     @classmethod
     def register_bp(cls, bp):
+        """
+        register a blueprint with a view.
+        """
         bp.add_url_rule(cls.get_endpoint(),
                         view_func=cls.as_view(cls.get_view_name())
                         )
@@ -97,7 +119,6 @@ class BaseModelView(BaseView):
     """
     #NDB MODEL
     model = None
-    view_actions = []
 
     def get_entity_from_key(self, key):
         """
@@ -133,6 +154,9 @@ class BaseModelView(BaseView):
         """
         generate view_name
         view names are defined as modelName_ActionOnModel
+
+        params:
+            action: the action to get the view_name for.
         """
         if not action:
             action = cls.action()
@@ -142,42 +166,73 @@ class BaseModelView(BaseView):
     def get_action_url(cls, action, **kwargs):
         """
         get action url
+        returns the url_for for given action
+        params:
+            action: action to get url_for
+            **kwargs: passed to url_for
         """
         return url_for('.' + cls.get_view_name(action), **kwargs)
 
     #LIST ACTION
     @classmethod
     def list_action(cls):
+        """
+        list_action
+        """
         return 'list'
 
     @classmethod
     def get_list_action_url(cls):
+        """
+        return list_action url_for
+        """
         return cls.get_action_url(cls.list_action())
 
     #EDIT ACTION
     @classmethod
     def edit_action(cls):
+        """
+        edit_action
+        """
         return 'edit'
 
     @classmethod
-    def get_edit_action_url(cls, entry):
-        entry = entry.key.urlsafe()
-        return cls.get_action_url(cls.edit_action(), key=entry)
+    def get_edit_action_url(cls, entity):
+        """
+        return edit_action url_for
+        params:
+            entity: the ndb.entity
+        """
+        return cls.get_action_url(cls.edit_action(), key=entity.key.urlsafe())
 
     #DELETE ACTION
     @classmethod
     def delete_action(cls):
+        """
+        delete_action
+        """
         return 'delete'
 
     @classmethod
-    def get_delete_action_url(cls, entry):
-        return cls.get_action_url(cls.delete_action(), key=entry.key.urlsafe())
+    def get_delete_action_url(cls, entity):
+        """
+        return delete_action url_for
+        params:
+            entity: the ndb.entity
+        """
+        return cls.get_action_url(cls.delete_action(), key=entity.key.urlsafe())
 
     #CREATE ACTION
     @classmethod
     def create_action(cls):
+        """
+        create_action
+        """
         return 'create'
 
     @classmethod
     def get_create_action_url(cls):
+        """
+        return create_action url_for
+        """
         return cls.get_action_url(cls.create_action())

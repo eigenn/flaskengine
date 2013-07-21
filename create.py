@@ -6,4 +6,7 @@ class ModelCreate(ModelEdit):
 
     @classmethod
     def action(cls):
+    	'''
+    	current action create
+    	'''
         return cls.create_action()
