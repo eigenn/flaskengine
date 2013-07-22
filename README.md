@@ -1,7 +1,9 @@
 
 ## ABOUT
 
-GAE flask model  crud view's with bootsrap.
+[![Build Status](https://travis-ci.org/eigenn/flaskengine.png?branch=master)](https://travis-ci.org/eigenn/flaskengine)
+
+GAE flask model crud view's with bootsrap.
 
 ## Requirements
 
@@ -18,19 +20,6 @@ GAE flask model  crud view's with bootsrap.
 * MarkupSafe==0.18
 * nose==1.3.0
 
-## CURRENT TEST COVERADGE
-
-```
-flaskengine                                                   7      0   100%
-flaskengine.base                                             77      6    92%   68, 75, 150, 206, 231, 238
-flaskengine.config                                           14      0   100%
-flaskengine.create                                            5      1    80%   12
-flaskengine.delete                                           15      2    87%   37-38
-flaskengine.edit                                             35      3    91%   37, 48, 60
-flaskengine.helper                                           17      0   100%
-flaskengine.index                                             4      0   100%
-flaskengine.list                                             26      4    85%   26-30
-```
 
 ## INSTALATION
 
