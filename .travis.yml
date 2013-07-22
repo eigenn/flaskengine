@@ -6,9 +6,10 @@ install:
   - 'pip install -r dev_requirements.txt --use-mirrors'
 
 before_script:
-  - wget http://googleappengine.googlecode.com/files/google_appengine_1.8.0.zip -nv
-  - unzip -q google_appengine_1.8.0.zip
+  - wget http://googleappengine.googlecode.com/files/google_appengine_1.8.2.zip -nv
+  - unzip -q google_appengine_1.8.2.zip
+  - export PYTHONPATH=$PYTHONPATH:$PWD/google_appengine
 
 script:
- - cd tests
+ - cd tests/
  - nosetests --without-sandbox --with-gae
