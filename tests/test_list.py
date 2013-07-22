@@ -1,5 +1,5 @@
 from .base import BaseTest, TestModel, BpAppRegister, test_bp
-from flaskengine.list import ModelList
+from flaskengine import ModelList
 
 
 class ListTestView(ModelList):

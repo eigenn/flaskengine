@@ -2,7 +2,7 @@ from flask.views import View
 from flask import render_template, current_app, abort, url_for, request
 from google.appengine.api import users
 from google.appengine.ext import ndb
-from .config import ConfigLoader
+from ..config import ConfigLoader
 
 
 class BaseView(View):

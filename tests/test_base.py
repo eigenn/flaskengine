@@ -1,5 +1,5 @@
 from .base import BaseTest, test_bp, BpAppRegister
-from flaskengine.index import IndexView
+from flaskengine import IndexView
 from flaskengine.config import ConfigLoader
 
 
