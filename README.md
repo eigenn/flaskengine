@@ -125,3 +125,7 @@ Example Config.
 
 * Pagination for List View
 * Admin authentication redirect
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/eigenn/flaskengine/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
