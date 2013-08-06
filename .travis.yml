@@ -11,5 +11,4 @@ before_script:
   - export PYTHONPATH=$PYTHONPATH:$PWD/google_appengine
 
 script:
- - cd tests/
- - nosetests --without-sandbox --with-gae
+ - ./runtests.sh
