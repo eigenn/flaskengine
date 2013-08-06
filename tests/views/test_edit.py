@@ -1,5 +1,5 @@
 from .base import BaseTest, TestModel, BpAppRegister, test_bp
-from flaskengine.edit import ModelEdit
+from flaskengine import ModelEdit
 
 
 class EditTestView(ModelEdit):
