@@ -1,5 +1,5 @@
 from .base import BaseTest, TestModel, BpAppRegister, test_bp
-from flaskengine.delete import ModelDelete
+from flaskengine import ModelDelete
 
 
 class DeleteTestView(ModelDelete):

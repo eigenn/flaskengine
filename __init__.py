@@ -67,11 +67,11 @@
 '''
 
 from flask import Blueprint
-from .index import IndexView
-from .list import ModelList
-from .edit import ModelEdit
-from .create import ModelCreate
-from .delete import ModelDelete
+from .views.index import IndexView
+from .views.list import ModelList
+from .views.edit import ModelEdit
+from .views.create import ModelCreate
+from .views.delete import ModelDelete
 
 flaskengine_bp = Blueprint('flaskengine',
                            __name__,
